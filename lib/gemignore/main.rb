@@ -6,9 +6,11 @@ require 'pp'
 
 module GemIgnore
 
+  #--
   # FIXME: Not a good name, but for now its okay
   # FIXME: Add documentation
   # FIXME: Cleanup code
+  #++
   class Main
 
     def dispatch
@@ -17,6 +19,7 @@ module GemIgnore
       add if ARGV.length === 2 and ARGV[0] === "add"
     end
 
+    # Displays a list of available .gitignore snippets
     def list
       puts "-> Available .gitignore snippets:"
       fetch().each do |f|
@@ -24,6 +27,7 @@ module GemIgnore
       end
     end
 
+    # Searches for a given snippet name
     def search
       puts "-> Snippets found for '#{ARGV[0]}':"
       fetch(regexpForInput(ARGV[0])).each do |f|
@@ -31,6 +35,9 @@ module GemIgnore
       end
     end
 
+    # Adds the snippet to the .gitignore file in the current working
+    # directory in case it exists and the given snippet identifier matched
+    # exactly one snippet.
     def add
       snippets = fetch(regexpForInput(ARGV[1]))
       if snippets.length < 1
@@ -41,11 +48,12 @@ module GemIgnore
           puts "---> " + f
         end
       else
-        tryPerformAdd(snippets.first)
+        performAdd(snippets.first)
       end
     end
 
-    def tryPerformAdd(snippet)
+    # Adds the given snippet in case the .gitignore file exists.
+    def performAdd(snippet)
       if not File.exists?(".gitignore")
         puts "No .gitignore file found in working directory"
       else
@@ -59,11 +67,18 @@ module GemIgnore
       end
     end
 
+    # Creates a case-insensitive Regexp for the given string. Wildcards are
+    # added before and after the input, so the regex will match anything containing
+    # the input, or the input itself.
     def regexpForInput(input)
       input = Regexp.escape(input)
       Regexp.new("(.*#{input}.*)", Regexp::IGNORECASE)
     end
 
+    # Fetches the list of available snippets via the GitHub API
+    #--
+    # FIXME: Do some (url) refactoring
+    #++
     def fetch(search = nil)
       search = /(.*)/ if search === nil
 
@@ -73,6 +88,10 @@ module GemIgnore
       files.compact
     end
 
+    # Fetches a snippet file from GitHub
+    #--
+    # FIXME: Do some (url) refactoring
+    #++
     def fetchFile(snippet)
       url = URI.parse("https://github.com/github/gitignore/raw/master/#{snippet}.gitignore")
 
@@ -88,7 +107,7 @@ module GemIgnore
 
       data
     end
-
   end
+
 
 end
