@@ -17,10 +17,11 @@ Jeweler::Tasks.new do |gem|
   gem.name = "gemignore"
   gem.homepage = "http://github.com/x3ro/gemignore"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{A command-line tool which ought to simplify your daily .gitignore hassle}
+  gem.description = %Q{gemignore allows you to automatically insert a wide range of preset .gitignore snippets into your .gitignore files}
   gem.email = "lucas@x3ro.de"
   gem.authors = ["Lucas Jenss"]
+  gem.executables = ['gemignore']
   # dependencies defined in Gemfile
 end
 Jeweler::RubygemsDotOrgTasks.new

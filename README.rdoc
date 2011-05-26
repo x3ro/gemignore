@@ -1,19 +1,9 @@
 = gemignore
 
-Description goes here.
-
-== Contributing to gemignore
- 
-* Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
-* Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it
-* Fork the project
-* Start a feature/bugfix branch
-* Commit and push until you are happy with your contribution
-* Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
-* Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
+This is a handy little tool for all people who work with Git. It allows you to easily add .gitignore snippets to the .gitignore file in your current working directory. The snippets are taken from https://github.com/github/gitignore , so if there is anything missing, feel free to fork that repository and create a pull request :)
 
 == Copyright
 
-Copyright (c) 2011 Lucas Jenss. See LICENSE.txt for
+Copyright (c) 2011 Lucas Jenß. See LICENSE.txt for
 further details.
 
