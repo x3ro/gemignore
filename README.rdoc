@@ -6,15 +6,15 @@ This is a handy little tool for all people who work with Git. It allows you to e
 
 To search for a .gitignore snippet, simply type
 
-+$ gemignore searchword+
+    $ gemignore searchword
 
 To list all available snippets run
 
-+$ gemignore+
+    $ gemignore
 
 And finally, to add a snippet to the .gitignore file in the <b>current working directory</b>:
 
-+$ gemignore add Global/OSX+
+    $ gemignore add Global/OSX
 
 == Copyright
 
