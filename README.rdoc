@@ -2,6 +2,20 @@
 
 This is a handy little tool for all people who work with Git. It allows you to easily add .gitignore snippets to the .gitignore file in your current working directory. The snippets are taken from https://github.com/github/gitignore , so if there is anything missing, feel free to fork that repository and create a pull request :)
 
+= Usage
+
+To search for a .gitignore snippet, simply type
+
+<pre>$ gemignore searchword</pre>
+
+To list all available snippets run
+
+<pre>$ gemignore</pre>
+
+And finally, to add a snippet to the .gitignore file in the <b>current working directory</b>:
+
+<pre>$ gemignore add Global/OSX</pre>
+
 == Copyright
 
 Copyright (c) 2011 Lucas Jenß. See LICENSE.txt for
