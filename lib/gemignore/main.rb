@@ -67,12 +67,14 @@ module GemIgnore
       end
     end
 
-    # Creates a case-insensitive Regexp for the given string. Wildcards are
+    # Creates a Regexp for the given string. Will be case-insensitive if the
+    # input does not contain any uppercase characters. Wildcards are
     # added before and after the input, so the regex will match anything containing
     # the input, or the input itself.
     def regexpForInput(input)
       input = Regexp.escape(input)
-      Regexp.new("(.*#{input}.*)", Regexp::IGNORECASE)
+      opt = input =~ /[A-Z]/ ? nil : Regexp::IGNORECASE;
+      Regexp.new("(.*#{input}.*)", opt)
     end
 
     # Fetches the list of available snippets via the GitHub API
