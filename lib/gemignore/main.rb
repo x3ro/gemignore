@@ -84,7 +84,7 @@ module GemIgnore
 
       data = Net::HTTP.get( URI.parse('http://github.com/api/v2/json/blob/all/github/gitignore/master') )
       response = JSON.parse(data)
-      files = response["blobs"].map { |k,v| k.split('.gitignore')[0] =~ search; $1  }
+      files = response["blobs"].map { |k,v| t = k.split('.'); (t[0] =~ search; $1) if t.last === 'gitignore'  }
       files.compact
     end
 
