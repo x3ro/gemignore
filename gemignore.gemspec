@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{gemignore}
-  s.version = "0.1.1"
+  s.version = "0.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Lucas Jenss"]
-  s.date = %q{2011-05-26}
+  s.date = %q{2011-05-28}
   s.default_executable = %q{gemignore}
   s.description = %q{gemignore allows you to automatically insert a wide range of preset .gitignore snippets into your .gitignore files}
   s.email = %q{lucas@x3ro.de}
@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
   s.files = [
     ".document",
     ".rspec",
+    "Changelog",
     "Gemfile",
     "LICENSE.txt",
     "README.rdoc",
@@ -28,8 +29,10 @@ Gem::Specification.new do |s|
     "VERSION",
     "bin/.gitignore",
     "bin/gemignore",
+    "gemignore.gemspec",
     "lib/gemignore.rb",
     "lib/gemignore/main.rb",
+    "lib/gemignore/util.rb",
     "spec/gemignore_spec.rb",
     "spec/spec_helper.rb"
   ]
@@ -45,12 +48,14 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<json>, [">= 1.5.1"])
+      s.add_runtime_dependency(%q<rainbow>, ["~> 1.1.1"])
       s.add_development_dependency(%q<rspec>, ["~> 2.3.0"])
       s.add_development_dependency(%q<bundler>, ["~> 1.0.0"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.6.0"])
       s.add_development_dependency(%q<rcov>, [">= 0"])
     else
       s.add_dependency(%q<json>, [">= 1.5.1"])
+      s.add_dependency(%q<rainbow>, ["~> 1.1.1"])
       s.add_dependency(%q<rspec>, ["~> 2.3.0"])
       s.add_dependency(%q<bundler>, ["~> 1.0.0"])
       s.add_dependency(%q<jeweler>, ["~> 1.6.0"])
@@ -58,6 +63,7 @@ Gem::Specification.new do |s|
     end
   else
     s.add_dependency(%q<json>, [">= 1.5.1"])
+    s.add_dependency(%q<rainbow>, ["~> 1.1.1"])
     s.add_dependency(%q<rspec>, ["~> 2.3.0"])
     s.add_dependency(%q<bundler>, ["~> 1.0.0"])
     s.add_dependency(%q<jeweler>, ["~> 1.6.0"])
