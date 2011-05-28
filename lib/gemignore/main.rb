@@ -1,8 +1,10 @@
+require 'rubygems'
+require 'rainbow'
 require 'net/http'
 require 'net/https'
 require 'json'
-require 'pp'
 
+require 'gemignore/util'
 
 module GemIgnore
 
@@ -13,6 +15,8 @@ module GemIgnore
   #++
   class Main
 
+    include Util
+
     def dispatch
       list if ARGV.length === 0
       search if ARGV.length === 1
@@ -21,17 +25,23 @@ module GemIgnore
 
     # Displays a list of available .gitignore snippets
     def list
-      puts "-> Available .gitignore snippets:"
+      msg "Available .gitignore snippets:", 1
       fetch().each do |f|
-        puts "---> " + f
+        notice f, 2
       end
     end
 
     # Searches for a given snippet name
     def search
-      puts "-> Snippets found for '#{ARGV[0]}':"
-      fetch(regexpForInput(ARGV[0])).each do |f|
-        puts "---> " + f
+      results = fetch(regexpForInput(ARGV[0]))
+      if(results.length === 0)
+        error "No snippets found for '#{ARGV[0]}'", 1
+      else
+        msg "Snippets found for '#{ARGV[0]}':", 1
+        results.each do |f|
+          notice f, 2
+        end
+
       end
     end
 
