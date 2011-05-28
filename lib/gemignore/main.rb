@@ -49,13 +49,14 @@ module GemIgnore
     # directory in case it exists and the given snippet identifier matched
     # exactly one snippet.
     def add
-      snippets = fetch(regexpForInput(ARGV[1]))
+      snippets = fetch(ARGV[1])
       if snippets.length < 1
-        puts "-> No snippets found"
+        error "No snippets found for '#{ARGV[1]}'", 1
       elsif snippets.length > 1
-        puts "-> Multiple possible snippets found:"
+        error "Multiple possible snippets found for '#{ARGV[0]}'.", 1
+        error "Please be more specific.", 1
         snippets.each do |f|
-          puts "---> " + f
+          notice f, 2
         end
       else
         performAdd(snippets.first)
@@ -65,15 +66,16 @@ module GemIgnore
     # Adds the given snippet in case the .gitignore file exists.
     def performAdd(snippet)
       if not File.exists?(".gitignore")
-        puts "No .gitignore file found in working directory"
+        error "No .gitignore file found in working directory.", 1
       else
-
-        puts "Adding Snippet '#{snippet}'"
+        notice "Adding Snippet '#{snippet}'.", 1
 
         f = File.new(".gitignore", "a")
         snippetData = fetchFile(snippet)
         f.write("\n\n# Added by gemignore. Snippet '#{snippet}'\n" + snippetData)
         f.close
+
+        msg "Successfully added snippet.", 1
       end
     end
 
