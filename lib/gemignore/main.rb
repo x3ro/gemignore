@@ -18,9 +18,38 @@ module GemIgnore
     include Util
 
     def dispatch
-      list if ARGV.length === 0
-      search if ARGV.length === 1
-      add if ARGV.length === 2 and ARGV[0] === "add"
+
+      (help; return) if ARGV.length === 0
+
+      cmd = ARGV.shift # get the sub-command
+      case cmd
+        when "list"
+          list
+        when "search"
+          search
+        when "add"
+          add
+        when "help"
+          help
+        else
+          error "Unknown gemignore command '#{cmd}'."
+          notice "Run 'gemignore help' to display usage information."
+      end
+
+    end
+
+    # Displays some usage information
+    def help
+      notice <<-BANNER
+gemignore - .gitignore snippet utility
+usage: gemignore <command> <input>
+
+Available commands are:
+  list    Lists all available snippets
+  search  Searches for snippets containing <input>
+  add     Add a snippet to the .gitignore file in your working directory
+  help    Display this message
+BANNER
     end
 
     # Displays a list of available .gitignore snippets
@@ -49,9 +78,9 @@ module GemIgnore
     # directory in case it exists and the given snippet identifier matched
     # exactly one snippet.
     def add
-      snippets = fetch(ARGV[1])
+      snippets = fetch(ARGV[0])
       if snippets.length < 1
-        error "No snippets found for '#{ARGV[1]}'", 1
+        error "No snippets found for '#{ARGV[0]}'", 1
       elsif snippets.length > 1
         error "Multiple possible snippets found for '#{ARGV[0]}'.", 1
         error "Please be more specific.", 1
