@@ -33,8 +33,8 @@ module GemIgnore
 
     # Searches for a given snippet name
     def search
-      results = fetch(regexpForInput(ARGV[0]))
-      if(results.length === 0)
+      results = fetch(ARGV[0])
+      if(results.length < 1)
         error "No snippets found for '#{ARGV[0]}'", 1
       else
         msg "Snippets found for '#{ARGV[0]}':", 1
@@ -113,11 +113,11 @@ module GemIgnore
       http.use_ssl = true if url.scheme == "https"  # enable SSL/TLS
 
       data = ""
-      http.start {
-        http.request_get(url.path) {|res|
+      http.start do
+        http.request_get(url.path) do |res|
           data = res.body
-        }
-      }
+        end
+      end
 
       data
     end
