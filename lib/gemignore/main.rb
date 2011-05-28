@@ -72,6 +72,7 @@ module GemIgnore
     # added before and after the input, so the regex will match anything containing
     # the input, or the input itself.
     def regexpForInput(input)
+      return (/(.*)/) if not input
       input = Regexp.escape(input)
       opt = input =~ /[A-Z]/ ? nil : Regexp::IGNORECASE;
       Regexp.new("(.*#{input}.*)", opt)
@@ -82,8 +83,7 @@ module GemIgnore
     # FIXME: Do some (url) refactoring
     #++
     def fetch(search = nil)
-      search = /(.*)/ if search === nil
-
+      search = regexpForInput(search)
       data = Net::HTTP.get( URI.parse('http://github.com/api/v2/json/blob/all/github/gitignore/master') )
       response = JSON.parse(data)
       files = response["blobs"].map { |k,v| t = k.split('.'); (t[0] =~ search; $1) if t.last === 'gitignore'  }
