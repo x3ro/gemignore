@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{gemignore}
-  s.version = "0.2.0"
+  s.version = "0.2.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Lucas Jenss"]
-  s.date = %q{2011-05-28}
+  s.date = %q{2011-06-10}
   s.default_executable = %q{gemignore}
   s.description = %q{gemignore allows you to automatically insert a wide range of preset .gitignore snippets into your .gitignore files}
   s.email = %q{lucas@x3ro.de}
@@ -36,7 +36,7 @@ Gem::Specification.new do |s|
     "spec/gemignore_spec.rb",
     "spec/spec_helper.rb"
   ]
-  s.homepage = %q{http://github.com/x3ro/gemignore}
+  s.homepage = %q{http://coding-journal.com/hassle-free-gitignore-management-with-gemignore/}
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.7}
