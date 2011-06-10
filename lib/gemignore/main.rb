@@ -136,7 +136,7 @@ BANNER
     # FIXME: Do some (url) refactoring
     #++
     def fetchFile(snippet)
-      url = URI.parse("https://github.com/github/gitignore/raw/master/#{snippet}.gitignore")
+      url = URI.parse("https://raw.github.com/github/gitignore/master/#{snippet}.gitignore")
 
       http = Net::HTTP.new(url.host, url.port)
       http.use_ssl = true if url.scheme == "https"  # enable SSL/TLS

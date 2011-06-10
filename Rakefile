@@ -15,7 +15,7 @@ require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
   gem.name = "gemignore"
-  gem.homepage = "http://github.com/x3ro/gemignore"
+  gem.homepage = "http://coding-journal.com/hassle-free-gitignore-management-with-gemignore/"
   gem.license = "MIT"
   gem.summary = %Q{A command-line tool which ought to simplify your daily .gitignore hassle}
   gem.description = %Q{gemignore allows you to automatically insert a wide range of preset .gitignore snippets into your .gitignore files}
