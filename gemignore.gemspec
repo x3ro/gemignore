@@ -5,15 +5,14 @@
 
 Gem::Specification.new do |s|
   s.name = %q{gemignore}
-  s.version = "0.2.1"
+  s.version = "0.3.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Lucas Jenss"]
-  s.date = %q{2011-06-10}
-  s.default_executable = %q{gemignore}
+  s.authors = [%q{Lucas Jenss}]
+  s.date = %q{2011-11-06}
   s.description = %q{gemignore allows you to automatically insert a wide range of preset .gitignore snippets into your .gitignore files}
   s.email = %q{lucas@x3ro.de}
-  s.executables = ["gemignore"]
+  s.executables = [%q{gemignore}]
   s.extra_rdoc_files = [
     "LICENSE.txt",
     "README.rdoc"
@@ -34,16 +33,16 @@ Gem::Specification.new do |s|
     "lib/gemignore/main.rb",
     "lib/gemignore/util.rb",
     "spec/gemignore_spec.rb",
-    "spec/spec_helper.rb"
+    "spec/spec_helper.rb",
+    "tests/gemignore_add_test.rb"
   ]
   s.homepage = %q{http://coding-journal.com/hassle-free-gitignore-management-with-gemignore/}
-  s.licenses = ["MIT"]
-  s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.7}
+  s.licenses = [%q{MIT}]
+  s.require_paths = [%q{lib}]
+  s.rubygems_version = %q{1.8.6}
   s.summary = %q{A command-line tool which ought to simplify your daily .gitignore hassle}
 
   if s.respond_to? :specification_version then
-    current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
