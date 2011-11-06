@@ -65,6 +65,11 @@ BANNER
       end
     end
 
+    # Returns the comment that is added before a gitignore snippet
+    def gitignoreCommentForSnippet(snippet)
+      "\n\n# Added by gemignore. Snippet '#{snippet}'\n"
+    end
+
     # Displays a list of available .gitignore snippets
     def list
       msg "Available .gitignore snippets:", 1
@@ -116,7 +121,7 @@ BANNER
 
         f = File.new(".gitignore", "a")
         snippetData = fetchFile(snippet)
-        f.write("\n\n# Added by gemignore. Snippet '#{snippet}'\n" + snippetData)
+        f.write(gitignoreCommentForSnippet(snippet) + snippetData)
         f.close
 
         msg "Successfully added snippet.", 1
