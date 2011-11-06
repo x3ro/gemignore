@@ -52,6 +52,19 @@ Available commands are:
 BANNER
     end
 
+    # Check if there is an case insensitive match in the fetched snippet list, in which
+    # case a list containing only that snippet is returned. Otherwise, the entire list
+    # of snippets is retuned unmodified.
+    def searchExactMatch(snippets, keyword)
+      keyword = keyword.downcase
+      index = snippets.find_index { |x| x.downcase == keyword }
+      if index.nil?
+        snippets
+      else
+        [ snippets[index] ]
+      end
+    end
+
     # Displays a list of available .gitignore snippets
     def list
       msg "Available .gitignore snippets:", 1
@@ -78,11 +91,13 @@ BANNER
     # directory in case it exists and the given snippet identifier matched
     # exactly one snippet.
     def add
-      snippets = fetch(ARGV[0])
+      keyword = ARGV[0]
+      snippets = fetch(keyword)
+      snippets = searchExactMatch(snippets, keyword)
       if snippets.length < 1
-        error "No snippets found for '#{ARGV[0]}'", 1
+        error "No snippets found for '#{keyword}'", 1
       elsif snippets.length > 1
-        error "Multiple possible snippets found for '#{ARGV[0]}'.", 1
+        error "Multiple possible snippets found for '#{keyword}'.", 1
         error "Please be more specific.", 1
         snippets.each do |f|
           notice f, 2
@@ -151,6 +166,7 @@ BANNER
       data
     end
   end
+
 
 
 end
