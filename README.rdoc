@@ -20,6 +20,12 @@ To display usage information you can use
 
     $ gemignore help
 
+
+= ToDo
+
+* Handle exception when there is no internet connection (e.g. main.rb:148)
+
+
 == Copyright
 
 Copyright (c) 2011 Lucas Jenß. See LICENSE.txt for
