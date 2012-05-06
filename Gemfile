@@ -4,6 +4,7 @@ source "http://rubygems.org"
 #   gem "activesupport", ">= 2.3.5"
 gem "json", ">= 1.5.1"
 gem "rainbow", "~> 1.1.1"
+gem "octokit", "~> 1.0.5"
 
 # Add dependencies to develop your gem here.
 # Include everything needed to run rake, tests, features, etc.
