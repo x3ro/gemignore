@@ -15,7 +15,7 @@ class GitHub
     return cache if not cache.nil?
 
     tree = Octokit.tree(repo, tree_sha, :recursive => 1).tree
-    writeCache(idArray, tree.map { |t| t.path })
+    writeCache(idArray, Hash[*tree.flat_map { |t| [t.path, t.sha] }])
   end
 
 
