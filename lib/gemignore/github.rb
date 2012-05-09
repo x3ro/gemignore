@@ -1,4 +1,5 @@
 require 'octokit'
+require 'base64'
 
 # This class implements the necessary high-level operations we need to perform on the
 # GitHub API and caches them. "High-level", because most of them are already pre-processed
@@ -19,8 +20,28 @@ class GitHub
   end
 
 
-  private
+  # Retrieves a file's contents identified by its blob's SHA hash
+  #
+  def self.getFile(repo, sha)
+    idArray = ['getFile', repo, sha]
+    cache = readCache(idArray)
+    return cache if not cache.nil?
 
+    res = Octokit.blob(repo, sha)
+    data = nil
+    case res.encoding
+      when "base64"
+        data = Base64.decode64(res.content)
+      when "utf-8"
+        data = res.content
+      else
+        raise NotImplementedError.new("Could not decode response from GitHub API")
+    end
+    self.writeCache(idArray, data)
+  end
+
+
+  private
 
   def self.writeCache(idArray, value)
     raise ArgumentError.new("idArray parameter must be an array") if not idArray.is_a? Array
