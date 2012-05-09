@@ -156,23 +156,14 @@ BANNER
     end
 
     # Fetches a snippet file from GitHub
-    #--
-    # FIXME: Do some (url) refactoring
-    #++
+    #
     def fetchFile(snippet)
-      url = URI.parse("https://raw.github.com/github/gitignore/master/#{snippet}.gitignore")
+      files = GitHub.fileList(@snippetRepository, @snippetBranch)
+      sha = files["#{snippet}.gitignore"]
 
-      http = Net::HTTP.new(url.host, url.port)
-      http.use_ssl = true if url.scheme == "https"  # enable SSL/TLS
+      raise ArgumentError.new("No gitignore snippet matching '#{snippet}' found") if sha.nil?
 
-      data = ""
-      http.start do
-        http.request_get(url.path) do |res|
-          data = res.body
-        end
-      end
-
-      data
+      GitHub.getFile(@snippetRepository, sha)
     end
   end
 
