@@ -149,10 +149,11 @@ BANNER
       search = regexpForInput(search)
 
       files = GitHub.fileList(@snippetRepository, @snippetBranch).keys
-      files.select do |f|
+      files.map! do |f|
         t = f.split('.')
         (t.pop; t.join('.') =~ search; $1) if t.last === 'gitignore'
       end
+      files.compact
     end
 
     # Fetches a snippet file from GitHub
