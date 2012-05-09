@@ -4,7 +4,6 @@ require 'net/http'
 require 'net/https'
 require 'json'
 
-require 'gemignore/util'
 
 module GemIgnore
 
