@@ -144,9 +144,7 @@ BANNER
     end
 
     # Fetches the list of available snippets via the GitHub API
-    #--
-    # FIXME: Do some (url) refactoring
-    #++
+    #
     def fetch(search = nil)
       search = regexpForInput(search)
 
