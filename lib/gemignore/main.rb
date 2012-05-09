@@ -16,6 +16,11 @@ module GemIgnore
 
     include Util
 
+    def initialize
+      @snippetRepository = 'github/gitignore'
+      @snippetBranch = 'master'
+    end
+
     def dispatch
 
       (help; return) if ARGV.length === 0
@@ -144,15 +149,12 @@ BANNER
     #++
     def fetch(search = nil)
       search = regexpForInput(search)
-      data = Net::HTTP.get( URI.parse('http://github.com/api/v2/json/blob/all/github/gitignore/master') )
-      response = JSON.parse(data)
 
-      files = response["blobs"].map do |k,v|
-        t = k.split('.')
+      files = GitHub.fileList(@snippetRepository, @snippetBranch).keys
+      files.select do |f|
+        t = f.split('.')
         (t.pop; t.join('.') =~ search; $1) if t.last === 'gitignore'
       end
-
-      files.compact
     end
 
     # Fetches a snippet file from GitHub
