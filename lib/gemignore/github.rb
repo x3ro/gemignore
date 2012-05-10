@@ -9,6 +9,8 @@ require 'json'
 #
 class GitHub
 
+  CACHE_LIFETIME = 60 * 30 # seconds
+
   # Path to our temporary cache file
   @tmpFile = Dir.tmpdir + '/' + 'gemignoretemp'
 
@@ -16,9 +18,10 @@ class GitHub
   # Try to load cache from temporary file
   if File.exists? @tmpFile
     @cache = JSON.parse(File.open(@tmpFile,'rb').read)
-  else
-    @cache = {}
+    @cache = nil if (Time.now.to_i - @cache["creationTime"]) > CACHE_LIFETIME
   end
+
+  @cache ||= { "creationTime" => Time.now.to_i }
 
 
   # These readers are needed so that we can access the variables in the finalizer
