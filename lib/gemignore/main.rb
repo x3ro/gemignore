@@ -30,9 +30,11 @@ module GemIgnore
         when "list"
           list
         when "search"
-          search
+          (help; exit) if ARGV.empty?
+          search(ARGV.dup)
         when "add"
-          add
+          (help; exit) if ARGV.empty?
+          add(ARGV.dup)
         when "help"
           help
         else
@@ -83,26 +85,30 @@ BANNER
     end
 
     # Searches for a given snippet name
-    def search
-      results = fetch(ARGV[0])
+    def search(args)
+      keyword = args.shift
+      results = fetch(keyword)
+
       if(results.length < 1)
-        error "No snippets found for '#{ARGV[0]}'", 1
+        error "No snippets found for '#{keyword}'", 1
       else
-        msg "Snippets found for '#{ARGV[0]}':", 1
+        msg "Snippets found for '#{keyword}':", 1
         results.each do |f|
           notice f, 2
         end
-
       end
+
+      search(args) if not args.empty?
     end
 
     # Adds the snippet to the .gitignore file in the current working
     # directory in case it exists and the given snippet identifier matched
     # exactly one snippet.
-    def add
-      keyword = ARGV[0]
+    def add(args)
+      keyword = args.shift
       snippets = fetch(keyword)
       snippets = searchExactMatch(snippets, keyword)
+
       if snippets.length < 1
         error "No snippets found for '#{keyword}'", 1
       elsif snippets.length > 1
@@ -114,6 +120,8 @@ BANNER
       else
         performAdd(snippets.first)
       end
+
+      add(args) if not args.empty?
     end
 
     # Adds the given snippet in case the .gitignore file exists.
