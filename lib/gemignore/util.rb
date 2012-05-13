@@ -2,7 +2,7 @@ module GemIgnore
   module Util
 
     def msg(msg, level=0)
-      puts (prefix(level) + msg).foreground(:green)
+      puts (prefix(level) + msg)
     end
 
     def notice(msg, level=0)
