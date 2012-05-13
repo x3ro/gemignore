@@ -16,13 +16,14 @@ module GemIgnore
 
     include Util
 
+
     def initialize
       @snippetRepository = 'github/gitignore'
       @snippetBranch = 'master'
     end
 
-    def dispatch
 
+    def dispatch
       (help; return) if ARGV.length === 0
 
       cmd = ARGV.shift # get the sub-command
@@ -41,8 +42,8 @@ module GemIgnore
           error "Unknown gemignore command '#{cmd}'."
           help
       end
-
     end
+
 
     # Displays some usage information
     def help
@@ -67,6 +68,7 @@ is equivalent to
 BANNER
     end
 
+
     # Check if there is an case insensitive match in the fetched snippet list, in which
     # case a list containing only that snippet is returned. Otherwise, the entire list
     # of snippets is retuned unmodified.
@@ -80,10 +82,12 @@ BANNER
       end
     end
 
+
     # Returns the comment that is added before a gitignore snippet
     def gitignoreCommentForSnippet(snippet)
       "\n\n# Added by gemignore. Snippet '#{snippet}'\n"
     end
+
 
     # Displays a list of available .gitignore snippets
     def list
@@ -92,6 +96,7 @@ BANNER
         notice f, 2
       end
     end
+
 
     # Searches for a given snippet name
     def search(args)
@@ -109,6 +114,7 @@ BANNER
 
       search(args) if not args.empty?
     end
+
 
     # Adds the snippet to the .gitignore file in the current working
     # directory in case it exists and the given snippet identifier matched
@@ -133,6 +139,7 @@ BANNER
       add(args) if not args.empty?
     end
 
+
     # Adds the given snippet in case the .gitignore file exists.
     def performAdd(snippet)
       if not File.exists?(".gitignore")
@@ -149,6 +156,7 @@ BANNER
       end
     end
 
+
     # Creates a Regexp for the given string. Will be case-insensitive if the
     # input does not contain any uppercase characters. Wildcards are
     # added before and after the input, so the regex will match anything containing
@@ -159,6 +167,7 @@ BANNER
       opt = input =~ /[A-Z]/ ? nil : Regexp::IGNORECASE;
       Regexp.new("(.*#{input}.*)", opt)
     end
+
 
     # Fetches the list of available snippets via the GitHub API
     #
@@ -173,6 +182,7 @@ BANNER
       files.compact
     end
 
+
     # Fetches a snippet file from GitHub
     #
     def fetchFile(snippet)
@@ -184,7 +194,4 @@ BANNER
       GitHub.getFile(@snippetRepository, sha)
     end
   end
-
-
-
 end
