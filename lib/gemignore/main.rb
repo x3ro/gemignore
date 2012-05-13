@@ -27,34 +27,43 @@ module GemIgnore
 
       cmd = ARGV.shift # get the sub-command
       case cmd
-        when "list"
+        when "list", "l"
           list
-        when "search"
+        when "search", "s"
           (help; exit) if ARGV.empty?
           search(ARGV.dup)
-        when "add"
+        when "add", "a"
           (help; exit) if ARGV.empty?
           add(ARGV.dup)
         when "help"
           help
         else
           error "Unknown gemignore command '#{cmd}'."
-          notice "Run 'gemignore help' to display usage information."
+          help
       end
 
     end
 
     # Displays some usage information
     def help
-      notice <<-BANNER
+      msg <<-BANNER
 gemignore - .gitignore snippet utility
 usage: gemignore <command> <input>
 
-Available commands are:
-  list    Lists all available snippets
-  search  Searches for snippets containing <input>
-  add     Add a snippet to the .gitignore file in your working directory
-  help    Display this message
+Available commands are (shortcut in parentheses):
+  (l)ist      Lists all available snippets
+  (s)earch    Searches for snippets containing <input>
+  (a)dd       Add a snippet identified by <input> to the .gitignore file in your working directory
+  help        Display this message
+
+You may use the either the full command or the shortcut, e.g.:
+
+  gemignore add linux osx
+
+is equivalent to
+
+  gemignore a linux osx
+
 BANNER
     end
 
