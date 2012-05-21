@@ -92,9 +92,7 @@ BANNER
     # Displays a list of available .gitignore snippets
     def list
       msg "Available .gitignore snippets:", 1
-      fetch().each do |f|
-        notice f, 2
-      end
+      puts table(fetch())
     end
 
 
@@ -107,9 +105,7 @@ BANNER
         error "No snippets found for '#{keyword}'", 1
       else
         msg "Snippets found for '#{keyword}':", 1
-        results.each do |f|
-          notice f, 2
-        end
+        puts table(results)
       end
 
       search(args) if not args.empty?

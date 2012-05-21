@@ -3,6 +3,7 @@
   * Switch to GitHub API v3 (using Octokit)
   * Add request caching for better performance
   * Add support for searching and adding multiple snippets at once
+  * Table-like output for "list" and "search" commands
 
 == 0.3.0
   * Fix bugs that prevented certain snippets from being added
