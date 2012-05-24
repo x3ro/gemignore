@@ -2,6 +2,10 @@ require 'terminfo'
 require 'terminal-table'
 
 module GemIgnore
+
+  class CommandError < ArgumentError
+  end
+
   module Util
 
     def msg(msg, level=0)

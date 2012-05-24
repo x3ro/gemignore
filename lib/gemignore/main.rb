@@ -24,7 +24,12 @@ module GemIgnore
       debugMode = (not ARGV.delete("-d").nil?)
 
       begin
-        dispatch
+        dispatch(ARGV.dup)
+      rescue CommandError => e
+        raise e if debugMode
+        error e.message
+        help
+        exit
       rescue Exception => e
         raise e if debugMode
         error "An error occured (are you connected to the internet?)"
@@ -34,22 +39,22 @@ module GemIgnore
 
 
     # Invokes the correct method according to the command line options that were given
-    def dispatch
-      (help; return) if ARGV.length === 0
+    def dispatch(arguments)
+      raise CommandError.new("Not enough arguments given.") if arguments.empty?
 
-      cmd = ARGV.shift # get the sub-command
+      cmd = arguments.shift # get the sub-command
       case cmd
         when "list", "l"
           list
         when "peek", "p"
-          (help; exit) if ARGV.empty?
-          view(ARGV.dup)
+          raise CommandError.new("No arguments given for 'peek' command.") if arguments.empty?
+          view(arguments)
         when "search", "s"
-          (help; exit) if ARGV.empty?
-          search(ARGV.dup)
+          raise CommandError.new("No arguments given for 'search' command.") if arguments.empty?
+          search(arguments)
         when "add", "a"
-          (help; exit) if ARGV.empty?
-          add(ARGV.dup)
+          raise CommandError.new("No arguments given for 'add' command.") if arguments.empty?
+          add(arguments)
         when "help"
           help
         else
