@@ -3,9 +3,14 @@ require 'terminal-table'
 
 module GemIgnore
 
+  # Exceptions thrown if GemIgnore receives wrong command line arguments
+  #
   class CommandError < ArgumentError
   end
 
+
+  # Module to encapsulate some utility functions used within GemIgnore
+  #
   module Util
 
     def msg(msg, level=0)
