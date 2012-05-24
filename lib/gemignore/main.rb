@@ -58,7 +58,7 @@ module GemIgnore
         when "help"
           help
         else
-          error "Unknown gemignore command '#{cmd}'."
+          raise CommandError.new("Unknown gemignore command '#{cmd}'.")
           help
       end
     end
