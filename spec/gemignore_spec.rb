@@ -1,5 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
+GEMIGNORE_PATH = "../bin/gemignore"
+
 describe "Gemignore" do
 
   # Basic usage tests
@@ -17,6 +19,35 @@ describe "Gemignore" do
   it "should not throw an error when search for a snippet" do
     lambda { GemIgnore::Main.new.dispatch(["search", "lin"]) }.should_not raise_error
     lambda { GemIgnore::Main.new.dispatch(["s", "lin"]) }.should_not raise_error
+  end
+
+  it "should be able to successfully add all snippets" do
+    # Change CWD to tests/ so that we don't accidentally modify another .gitignore file
+    Dir.chdir(File.dirname(__FILE__))
+
+    # Clear potential old .gitignore file
+    File.delete('.gitignore') if File.exists?('.gitignore')
+    File.new('.gitignore', 'w')
+
+    gemignore = GemIgnore::Main.new
+    snippets = gemignore.fetch('')  # Get all snippets
+
+    gitignoreLines = 0 # File should be empty, we created it in #setup
+    gitignoreCommentLength = gemignore.gitignoreCommentForSnippet('foobar').split("\n").length
+
+    snippets.each do |snippet|
+      puts %x[#{GEMIGNORE_PATH} add #{snippet}]
+
+      gitignore = File.readlines('.gitignore')
+
+      # Make sure that adding the snippet did actually add something to the file
+      (gitignore.length >= (gitignoreLines + gitignoreCommentLength)).should be true
+      gitignoreLines = gitignore.length
+
+      # Asserting that there is not HTML in the added snippet, which would mean there
+      # was a 404 error when fetching the snippet.
+      gitignore.grep(/<html>/).should be_empty
+    end
   end
 
 
