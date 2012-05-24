@@ -21,11 +21,12 @@ module GemIgnore
     end
 
 
-    def dispatch
+    # Default entry point when running from command line
+    def dispatchWithErrorHandling
       debugMode = (not ARGV.delete("-d").nil?)
 
       begin
-        _dispatch
+        dispatch
       rescue Exception => e
         raise e if debugMode
         error "An error occured (are you connected to the internet?)"
@@ -34,7 +35,8 @@ module GemIgnore
     end
 
 
-    def _dispatch
+    # Invokes the correct method according to the command line options that were given
+    def dispatch
       (help; return) if ARGV.length === 0
 
       cmd = ARGV.shift # get the sub-command

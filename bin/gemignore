@@ -5,4 +5,4 @@ $LOAD_PATH.unshift(lib) if File.directory?(lib) && !$LOAD_PATH.include?(lib)
 
 require 'gemignore'
 
-GemIgnore::Main.new.dispatch
+GemIgnore::Main.new.dispatchWithErrorHandling
