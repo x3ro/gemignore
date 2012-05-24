@@ -24,6 +24,19 @@ module GemIgnore
 
 
     def dispatch
+      debugMode = (not ARGV.delete("-d").nil?)
+
+      begin
+        _dispatch
+      rescue Exception => e
+        raise e if debugMode
+        error "An error occured (are you connected to the internet?)"
+        error "For more information run gemignore with the '-d' option."
+      end
+    end
+
+
+    def _dispatch
       (help; return) if ARGV.length === 0
 
       cmd = ARGV.shift # get the sub-command
