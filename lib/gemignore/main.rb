@@ -43,6 +43,9 @@ module GemIgnore
       case cmd
         when "list", "l"
           list
+        when "peek", "p"
+          (help; exit) if ARGV.empty?
+          view(ARGV.dup)
         when "search", "s"
           (help; exit) if ARGV.empty?
           search(ARGV.dup)
@@ -106,6 +109,15 @@ BANNER
     def list
       msg "Available .gitignore snippets:", 1
       puts table(fetch())
+    end
+
+
+    # Displays the contents of the matched snippets
+    def view(args)
+      findSnippets(args) do |s|
+        notice "Displaying snippet '#{s}'", 2
+        puts fetchFile(s)
+      end
     end
 
 
