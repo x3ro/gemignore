@@ -10,12 +10,10 @@ module GemIgnore
   #--
   # FIXME: Not a good name, but for now its okay
   # FIXME: Add documentation
-  # FIXME: Cleanup code
   #++
   class Main
 
     include Util
-
 
     def initialize
       @snippetRepository = 'github/gitignore'
