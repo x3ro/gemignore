@@ -5,7 +5,8 @@ require 'json'
 
 # This class implements the necessary high-level operations we need to perform on the
 # GitHub API and caches them. "High-level", because most of them are already pre-processed
-# to fit what is needed in gemignore.
+# to fit what is needed in gemignore, whereas "low-level" operations are those directly
+# performed on the GitHub API
 #
 class GitHub
 
@@ -24,13 +25,22 @@ class GitHub
   @cache ||= { "creationTime" => Time.now.to_i }
 
 
-  # These readers are needed so that we can access the variables in the finalizer
   class << self
-    attr_reader :tmpFile, :cache
+    # Path to the temporary file where we store our cache object. Necessary so that we can
+    # access the path in the finalizer.
+    #
+    attr_reader :tmpFile
+
+    # The object which is used to cache requests. Necessary so that we may access the cache
+    # object in the finalizer.
+    #
+    attr_reader :cache
   end
 
 
-  # We write the cache object to a temporary file when the program exits
+  # This finalizer is used to write the cache object to a temporary file when the program
+  # exits. We try to load the cache object from the file when this class is created.
+  #
   ObjectSpace.define_finalizer(self, proc do
     File.open(self.tmpFile, 'w').write(JSON.generate(self.cache))
   end)
@@ -71,6 +81,7 @@ class GitHub
 
   private
 
+  # Write a value to our cache object.
   def self.writeCache(idArray, value)
     raise ArgumentError.new("idArray parameter must be an array") if not idArray.is_a? Array
     id = idArray.join("$")
