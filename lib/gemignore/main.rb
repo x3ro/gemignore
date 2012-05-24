@@ -129,6 +129,14 @@ BANNER
     # directory in case it exists and the given snippet identifier matched
     # exactly one snippet.
     def add(args)
+      findSnippets(args) { |s| performAdd(s) }
+    end
+
+
+    # Searches for snippets matching the given keywords (an individual search is performed
+    # for every array element. The passed block is called with the name of every found
+    # snippet (excluding the '.gitignore' suffix)
+    def findSnippets(args, &block)
       keyword = args.shift
       snippets = fetch(keyword)
       snippets = searchExactMatch(snippets, keyword)
@@ -142,10 +150,10 @@ BANNER
           notice f, 2
         end
       else
-        performAdd(snippets.first)
+        block.call snippets.first
       end
 
-      add(args) if not args.empty?
+      findSnippets(args, &block) if not args.empty?
     end
 
 
