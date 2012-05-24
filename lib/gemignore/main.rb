@@ -67,6 +67,7 @@ usage: gemignore <command> <input>
 
 Available commands are (shortcut in parentheses):
   (l)ist      Lists all available snippets
+  (p)eek      Show contents of given snippets
   (s)earch    Searches for snippets containing <input>
   (a)dd       Add a snippet identified by <input> to the .gitignore file in your working directory
   help        Display this message
