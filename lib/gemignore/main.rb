@@ -7,14 +7,12 @@ require 'json'
 
 module GemIgnore
 
-  #--
-  # FIXME: Not a good name, but for now its okay
-  # FIXME: Add documentation
-  #++
+  # This is where the core functionality of GemIgnore lies
   class Main
 
     include Util
 
+    # Set the repository and branch where we want to retrieve the snippets from
     def initialize
       @snippetRepository = 'github/gitignore'
       @snippetBranch = 'master'
