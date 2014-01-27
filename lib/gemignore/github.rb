@@ -24,27 +24,11 @@ class GitHub
 
   @cache ||= { "creationTime" => Time.now.to_i }
 
-
-  class << self
-    # Path to the temporary file where we store our cache object. Necessary so that we can
-    # access the path in the finalizer.
-    #
-    attr_reader :tmpFile
-
-    # The object which is used to cache requests. Necessary so that we may access the cache
-    # object in the finalizer.
-    #
-    attr_reader :cache
-  end
-
-
-  # This finalizer is used to write the cache object to a temporary file when the program
+  # Used to write the cache object to a temporary file when the program
   # exits. We try to load the cache object from the file when this class is created.
-  #
-  ObjectSpace.define_finalizer(self, proc do
-    File.open(self.tmpFile, 'w').write(JSON.generate(self.cache))
-  end)
-
+  at_exit {
+    File.open(@tmpFile, 'w').write(JSON.generate(@cache))
+  }
 
   # Retrieve the full list of files available inside the given repository + tree.
   #
