@@ -85,6 +85,11 @@ class GitHub
   def self.writeCache(idArray, value)
     raise ArgumentError.new("idArray parameter must be an array") if not idArray.is_a? Array
     id = idArray.join("$")
+
+    if value.is_a? String
+      value = value.force_encoding("UTF-8")
+    end
+
     @cache[id] = value
   end
 
