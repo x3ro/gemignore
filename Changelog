@@ -1,3 +1,7 @@
+== 0.5.0
+  * Fix gemignore add error when adding snippet containing certain UTF-8 characters
+  * Improve mechanism to store cache on exit (ObjectSpace finalizer migrated to at_exit)
+
 == 0.4.1
   * Prevent Faraday 0.9.0+ from being used, since it currently breaks the download
   * Allow newer versions of the "rainbow" gem and bundler to be used
