@@ -14,6 +14,11 @@ module GemIgnore
 
     # Set the repository and branch where we want to retrieve the snippets from
     def initialize
+      trap("INT") do
+        error "Interrupt Signal caught. Exiting!"
+        exit 1
+      end
+
       @snippetRepository = 'github/gitignore'
       @snippetBranch = 'master'
     end
