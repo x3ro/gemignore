@@ -1,3 +1,8 @@
+== 0.4.1
+  * Prevent Faraday 0.9.0+ from being used, since it currently breaks the download
+  * Allow newer versions of the "rainbow" gem and bundler to be used
+  * Development: Allow newer "jeweler" version that doesn't break with Ruby 2.1
+
 == 0.4.0
   * Add shortcuts for gemignore commands
   * Switch to GitHub API v3 (using Octokit)
